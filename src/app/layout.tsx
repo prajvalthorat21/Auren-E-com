@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/context/Providers";
@@ -9,6 +9,12 @@ import { SearchOverlay } from "@/components/search/SearchOverlay";
 import { QuickAddModal } from "@/components/product/QuickAddModal";
 import { SizeGuideModal } from "@/components/product/SizeGuideModal";
 import { Toast } from "@/components/common/Toast";
+
+export const viewport: Viewport = {
+  themeColor: "#0D0D0D",
+  width: "device-width",
+  initialScale: 1,
+};
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",

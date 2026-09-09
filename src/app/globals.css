@@ -25,7 +25,6 @@
   }
 
   html {
-    scroll-behavior: smooth;
     background-color: var(--bg-primary);
     color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
@@ -42,6 +41,15 @@
   ::selection {
     background-color: #0D0D0D;
     color: #F8F5EF;
+  }
+
+  /* Hide framework dev indicator artifacts */
+  nextjs-portal,
+  [data-nextjs-dev-overlay],
+  [data-nextjs-toast],
+  [data-next-badge],
+  #nextjs-dev-indicator {
+    display: none !important;
   }
 }
 

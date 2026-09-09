@@ -55,11 +55,11 @@ export function Header() {
           {/* Mobile Menu Button */}
           <div className="flex items-center lg:hidden">
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-1.5 -ml-1.5 text-[#0D0D0D] hover:opacity-70 transition-opacity"
-              aria-label="Toggle Navigation Menu"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-2 -ml-2 text-[#0D0D0D] hover:opacity-70 transition-opacity cursor-pointer"
+              aria-label="Open Navigation Menu"
             >
-              {isMobileMenuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
+              <Menu size={22} strokeWidth={1.5} />
             </button>
           </div>
 
@@ -98,7 +98,7 @@ export function Header() {
             {/* Search Trigger */}
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-1.5 text-[12px] uppercase font-medium tracking-[0.15em] text-[#0D0D0D] hover:opacity-70 transition-opacity p-1.5"
+              className="flex items-center gap-1.5 text-[12px] uppercase font-medium tracking-[0.15em] text-[#0D0D0D] hover:opacity-70 transition-opacity p-1.5 cursor-pointer"
               aria-label="Search"
             >
               <Search size={19} strokeWidth={1.5} />
@@ -122,7 +122,7 @@ export function Header() {
             {/* Shopping Bag Trigger */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-1.5 text-[#0D0D0D] hover:opacity-70 transition-opacity flex items-center gap-1"
+              className="relative p-1.5 text-[#0D0D0D] hover:opacity-70 transition-opacity flex items-center gap-1 cursor-pointer"
               aria-label={`Shopping bag with ${totalItems} items`}
             >
               <ShoppingBag size={19} strokeWidth={1.5} />
@@ -139,11 +139,25 @@ export function Header() {
         </div>
       </nav>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu (Full-screen overlay with dedicated header and 44x44px close button) */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[88px] z-30 bg-[#F8F5EF] animate-fade-in flex flex-col justify-between px-6 py-8 border-t border-[#E5DDD2] overflow-y-auto">
-          <div className="space-y-6">
-            <p className="text-[10px] tracking-[0.25em] text-[#8C8C8C] uppercase font-medium">
+        <div className="lg:hidden fixed inset-0 z-50 bg-[#F8F5EF] animate-fade-in flex flex-col justify-between">
+          {/* Mobile Menu Header */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-[#E5DDD2] bg-[#F8F5EF] w-full">
+            <Logo size="sm" />
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="w-11 h-11 flex items-center justify-center -mr-2 text-[#0D0D0D] hover:opacity-60 transition-opacity cursor-pointer focus:outline-hidden"
+              aria-label="Close navigation menu"
+            >
+              <X size={20} strokeWidth={1.5} />
+            </button>
+          </div>
+
+          {/* Scrollable Navigation Body */}
+          <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+            <p className="text-[10px] tracking-[0.25em] text-[#8C8C8C] uppercase font-semibold">
               COLLECTIONS
             </p>
             <div className="flex flex-col space-y-4">
@@ -167,7 +181,7 @@ export function Header() {
             </div>
 
             <div className="pt-6 border-t border-[#E5DDD2] space-y-3">
-              <p className="text-[10px] tracking-[0.25em] text-[#8C8C8C] uppercase font-medium">
+              <p className="text-[10px] tracking-[0.25em] text-[#8C8C8C] uppercase font-semibold">
                 DISCOVER STYLE
               </p>
               <div className="flex flex-wrap gap-2">
@@ -185,7 +199,8 @@ export function Header() {
             </div>
           </div>
 
-          <div className="pt-8 border-t border-[#E5DDD2] space-y-4 text-xs text-[#555555]">
+          {/* Footer Assistance */}
+          <div className="px-6 py-5 border-t border-[#E5DDD2] space-y-3 text-xs text-[#555555] bg-[#F1ECE3]/40">
             <div className="flex justify-between items-center">
               <span>CURRENCY</span>
               <span className="font-medium text-[#0D0D0D]">INR (₹)</span>

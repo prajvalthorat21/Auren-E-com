@@ -13,14 +13,14 @@ export interface ProductImageSet {
 
 export const ASSET_IMAGES = {
   // Hero & Editorial Banners (Dedicated campaign visual)
-  hero: "/images/campaign/auren-home-hero-v01.jpg",
+  hero: "/images/campaign/auren-home-hero-v01.png",
   editorialCampaign: "/images/campaign/AUREN_MASTER_CAMPAIGN_REFERENCE_BOARD.png",
 
-  // Category Banners (Dedicated category banner photography)
-  categoryTshirts: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=85&w=1000",
-  categoryShirts: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=85&w=1000",
-  categoryJeans: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&q=85&w=1000",
-  categoryTrackPants: "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&q=85&w=1000",
+  // Category Banners (Newly Generated Nano Banana Editorial Photography)
+  categoryTshirts: "/images/campaign/category/auren-category-tshirts-v01.png",
+  categoryShirts: "/images/campaign/category/auren-category-shirts-v01.png",
+  categoryJeans: "/images/campaign/category/auren-category-jeans-v01.png",
+  categoryTrackPants: "/images/campaign/category/auren-category-track-pants-v01.png",
 
   // 16 Approved Products (Strictly Local Locked Assets)
   products: {

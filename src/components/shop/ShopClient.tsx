@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import React, { useMemo, useState, useCallback } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { FilterSidebar } from "@/components/filter/FilterSidebar";
 import { FilterDrawer } from "@/components/filter/FilterDrawer";
 import { ActiveFilters } from "@/components/filter/ActiveFilters";
@@ -21,134 +21,253 @@ export function ShopClient({
   pageTitle = "ALL COLLECTIONS",
   pageSubtitle = "Considered silhouettes and timeless unisex essentials designed for daily rotation.",
 }: ShopClientProps) {
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  // Filters State
-  const [selectedCategories, setSelectedCategories] = useState<CategorySlug[]>(
-    initialCategory ? [initialCategory] : []
-  );
-  const [selectedSizes, setSelectedSizes] = useState<GarmentSize[]>([]);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
-  const [selectedFits, setSelectedFits] = useState<FitType[]>([]);
-  const [selectedStyles, setSelectedStyles] = useState<StyleTag[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 4500]);
-  const [sortBy, setSortBy] = useState<string>("featured");
 
   // Mobile Filter Drawer State
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
-  // Sync category when navigating to a new category route
-  useEffect(() => {
-    if (initialCategory) {
-      setSelectedCategories([initialCategory]);
-    } else {
-      setSelectedCategories([]);
-    }
-  }, [initialCategory]);
+  // 1. DERIVE ACTIVE FILTERS DIRECTLY FROM URL SEARCH PARAMS
+  const selectedCategories = useMemo<CategorySlug[]>(() => {
+    if (initialCategory) return [initialCategory];
+    const catParam = searchParams.get("category");
+    if (!catParam) return [];
+    return catParam.split(",").filter(Boolean) as CategorySlug[];
+  }, [searchParams, initialCategory]);
 
-  // Sync URL query params
-  useEffect(() => {
-    const styleParam = searchParams.get("style");
-    if (styleParam) {
-      const match = styleParam.toUpperCase() as StyleTag;
-      setSelectedStyles([match]);
-    }
-    const sortParam = searchParams.get("sort");
-    if (sortParam) {
-      setSortBy(sortParam);
-    }
-    const searchParam = searchParams.get("search");
-    if (searchParam) {
-      // If search query is passed via URL
-      const q = searchParam.toLowerCase().trim();
-      const matchedColors = ["black", "charcoal", "ivory", "taupe", "stone", "indigo", "olive"].filter(
-        (c) => q.includes(c)
-      );
-      if (matchedColors.length > 0) {
-        setSelectedColors(matchedColors.map((c) => c.charAt(0).toUpperCase() + c.slice(1)));
-      }
-    }
+  const selectedSizes = useMemo<GarmentSize[]>(() => {
+    const sizeParam = searchParams.get("size");
+    if (!sizeParam) return [];
+    return sizeParam
+      .split(",")
+      .map((s) => s.toUpperCase() as GarmentSize)
+      .filter(Boolean);
   }, [searchParams]);
 
-  // Toggle Handlers
+  const selectedColors = useMemo<string[]>(() => {
+    const colorParam = searchParams.get("color");
+    if (!colorParam) return [];
+    return colorParam.split(",").filter(Boolean);
+  }, [searchParams]);
+
+  const selectedFits = useMemo<FitType[]>(() => {
+    const fitParam = searchParams.get("fit");
+    if (!fitParam) return [];
+    return fitParam
+      .split(",")
+      .map((f) => f.toUpperCase() as FitType)
+      .filter(Boolean);
+  }, [searchParams]);
+
+  const selectedStyles = useMemo<StyleTag[]>(() => {
+    const styleParam = searchParams.get("style");
+    if (!styleParam) return [];
+    return styleParam
+      .split(",")
+      .map((s) => s.toUpperCase() as StyleTag)
+      .filter(Boolean);
+  }, [searchParams]);
+
+  const maxPrice = useMemo<number>(() => {
+    const priceParam = searchParams.get("maxPrice") || searchParams.get("price");
+    if (!priceParam) return 4500;
+    const parsed = Number(priceParam);
+    return isNaN(parsed) ? 4500 : parsed;
+  }, [searchParams]);
+
+  const priceRange = useMemo<[number, number]>(() => [0, maxPrice], [maxPrice]);
+
+  const sortBy = useMemo<string>(() => {
+    return searchParams.get("sort") || "featured";
+  }, [searchParams]);
+
+  const searchQuery = useMemo<string>(() => {
+    return searchParams.get("search") || searchParams.get("q") || "";
+  }, [searchParams]);
+
+  // 2. CENTRALIZED URL UPDATE FUNCTION
+  const updateUrlFilters = useCallback(
+    (updates: {
+      categories?: CategorySlug[];
+      sizes?: GarmentSize[];
+      colors?: string[];
+      fits?: FitType[];
+      styles?: StyleTag[];
+      maxPrice?: number;
+      sort?: string;
+      clearAll?: boolean;
+    }) => {
+      const params = new URLSearchParams();
+
+      if (updates.clearAll) {
+        if (sortBy && sortBy !== "featured") params.set("sort", sortBy);
+        if (searchQuery) params.set("search", searchQuery);
+        const queryStr = params.toString();
+        router.push(queryStr ? `${pathname}?${queryStr}` : pathname, { scroll: false });
+        return;
+      }
+
+      const newCats = updates.categories !== undefined ? updates.categories : selectedCategories;
+      const newSizes = updates.sizes !== undefined ? updates.sizes : selectedSizes;
+      const newColors = updates.colors !== undefined ? updates.colors : selectedColors;
+      const newFits = updates.fits !== undefined ? updates.fits : selectedFits;
+      const newStyles = updates.styles !== undefined ? updates.styles : selectedStyles;
+      const newPrice = updates.maxPrice !== undefined ? updates.maxPrice : maxPrice;
+      const newSort = updates.sort !== undefined ? updates.sort : sortBy;
+
+      if (!initialCategory && newCats.length > 0) {
+        params.set("category", newCats.map((c) => c.toLowerCase()).join(","));
+      }
+      if (newSizes.length > 0) {
+        params.set("size", newSizes.map((s) => s.toLowerCase()).join(","));
+      }
+      if (newColors.length > 0) {
+        params.set("color", newColors.map((c) => c.toLowerCase()).join(","));
+      }
+      if (newFits.length > 0) {
+        params.set("fit", newFits.map((f) => f.toLowerCase()).join(","));
+      }
+      if (newStyles.length > 0) {
+        params.set("style", newStyles.map((s) => s.toLowerCase()).join(","));
+      }
+      if (newPrice < 4500) {
+        params.set("maxPrice", String(newPrice));
+      }
+      if (newSort && newSort !== "featured") {
+        params.set("sort", newSort);
+      }
+      if (searchQuery) {
+        params.set("search", searchQuery);
+      }
+
+      const queryStr = params.toString();
+      router.push(queryStr ? `${pathname}?${queryStr}` : pathname, { scroll: false });
+    },
+    [
+      pathname,
+      router,
+      initialCategory,
+      selectedCategories,
+      selectedSizes,
+      selectedColors,
+      selectedFits,
+      selectedStyles,
+      maxPrice,
+      sortBy,
+      searchQuery,
+    ]
+  );
+
+  // 3. TOGGLE / ACTION HANDLERS
   const handleToggleCategory = (cat: CategorySlug) => {
-    setSelectedCategories((prev) =>
-      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
-    );
+    if (initialCategory) return;
+    const catLower = cat.toLowerCase() as CategorySlug;
+    const updated = selectedCategories.some((c) => c.toLowerCase() === catLower)
+      ? selectedCategories.filter((c) => c.toLowerCase() !== catLower)
+      : [...selectedCategories, catLower];
+    updateUrlFilters({ categories: updated });
   };
 
   const handleToggleSize = (size: GarmentSize) => {
-    setSelectedSizes((prev) =>
-      prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]
-    );
+    const sizeUpper = size.toUpperCase() as GarmentSize;
+    const updated = selectedSizes.some((s) => s.toUpperCase() === sizeUpper)
+      ? selectedSizes.filter((s) => s.toUpperCase() !== sizeUpper)
+      : [...selectedSizes, sizeUpper];
+    updateUrlFilters({ sizes: updated });
   };
 
   const handleToggleColor = (colorName: string) => {
-    setSelectedColors((prev) =>
-      prev.includes(colorName) ? prev.filter((c) => c !== colorName) : [...prev, colorName]
-    );
+    const updated = selectedColors.some((c) => c.toLowerCase() === colorName.toLowerCase())
+      ? selectedColors.filter((c) => c.toLowerCase() !== colorName.toLowerCase())
+      : [...selectedColors, colorName];
+    updateUrlFilters({ colors: updated });
   };
 
   const handleToggleFit = (fit: FitType) => {
-    setSelectedFits((prev) =>
-      prev.includes(fit) ? prev.filter((f) => f !== fit) : [...prev, fit]
-    );
+    const fitUpper = fit.toUpperCase() as FitType;
+    const updated = selectedFits.some((f) => f.toUpperCase() === fitUpper)
+      ? selectedFits.filter((f) => f.toUpperCase() !== fitUpper)
+      : [...selectedFits, fitUpper];
+    updateUrlFilters({ fits: updated });
   };
 
   const handleToggleStyle = (style: StyleTag) => {
-    setSelectedStyles((prev) =>
-      prev.includes(style) ? prev.filter((s) => s !== style) : [...prev, style]
-    );
+    const styleUpper = style.toUpperCase() as StyleTag;
+    const updated = selectedStyles.some((s) => s.toUpperCase() === styleUpper)
+      ? selectedStyles.filter((s) => s.toUpperCase() !== styleUpper)
+      : [...selectedStyles, styleUpper];
+    updateUrlFilters({ styles: updated });
+  };
+
+  const handlePriceChange = (range: [number, number]) => {
+    updateUrlFilters({ maxPrice: range[1] });
+  };
+
+  const handleResetPrice = () => {
+    updateUrlFilters({ maxPrice: 4500 });
+  };
+
+  const handleSortChange = (newSort: string) => {
+    updateUrlFilters({ sort: newSort });
   };
 
   const handleResetFilters = () => {
-    setSelectedCategories(initialCategory ? [initialCategory] : []);
-    setSelectedSizes([]);
-    setSelectedColors([]);
-    setSelectedFits([]);
-    setSelectedStyles([]);
-    setPriceRange([0, 4500]);
+    updateUrlFilters({ clearAll: true });
   };
 
-  // Filter & Sort Products
+  // 4. FILTER COMBINATION & SORTING LOGIC
   const filteredProducts = useMemo(() => {
     let result = [...PRODUCTS];
 
-    // Category
+    // Category Filter
     if (selectedCategories.length > 0) {
       result = result.filter((p) => selectedCategories.includes(p.category));
     }
 
-    // Size
+    // Size Filter (OR within sizes)
     if (selectedSizes.length > 0) {
       result = result.filter((p) => p.sizes.some((s) => selectedSizes.includes(s)));
     }
 
-    // Color (matching exact color names)
+    // Color Filter (OR within colors)
     if (selectedColors.length > 0) {
       result = result.filter((p) =>
         p.colors.some((c) =>
-          selectedColors.some(
-            (sc) => c.name.toLowerCase() === sc.toLowerCase()
-          )
+          selectedColors.some((sc) => sc.toLowerCase() === c.name.toLowerCase())
         )
       );
     }
 
-    // Fit
+    // Fit Filter (OR within fits)
     if (selectedFits.length > 0) {
       result = result.filter((p) => selectedFits.includes(p.fit));
     }
 
-    // Style Tags
+    // Style Mood Filter (OR within styles)
     if (selectedStyles.length > 0) {
       result = result.filter((p) =>
         p.styleTags.some((tag) => selectedStyles.includes(tag))
       );
     }
 
-    // Price
-    result = result.filter((p) => p.price <= priceRange[1]);
+    // Price Filter
+    if (maxPrice < 4500) {
+      result = result.filter((p) => p.price <= maxPrice);
+    }
+
+    // Search Query (if passed)
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      result = result.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.categoryName.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q) ||
+          p.colors.some((c) => c.name.toLowerCase().includes(q))
+      );
+    }
 
     // Sorting
     if (sortBy === "newest") {
@@ -173,17 +292,18 @@ export function ShopClient({
     selectedColors,
     selectedFits,
     selectedStyles,
-    priceRange,
+    maxPrice,
+    searchQuery,
     sortBy,
   ]);
 
   const hasActiveFilters =
-    (initialCategory ? selectedCategories.length > 1 || !selectedCategories.includes(initialCategory) : selectedCategories.length > 0) ||
+    (!initialCategory && selectedCategories.length > 0) ||
     selectedSizes.length > 0 ||
     selectedColors.length > 0 ||
     selectedFits.length > 0 ||
     selectedStyles.length > 0 ||
-    priceRange[1] < 4500;
+    maxPrice < 4500;
 
   return (
     <div className="w-full min-h-screen py-6 sm:py-8 bg-[#F8F5EF] text-[#0D0D0D]">
@@ -202,14 +322,16 @@ export function ShopClient({
 
             {/* Sort Dropdown on Header Toolbar */}
             <div className="flex items-center gap-2 self-end sm:self-auto">
-              <span className="hidden sm:inline-block text-[10px] font-semibold tracking-widest uppercase text-[#8C8C8C]">
+              <label htmlFor="shop-sort-select" className="hidden sm:inline-block text-[10px] font-semibold tracking-widest uppercase text-[#8C8C8C]">
                 SORT:
-              </span>
+              </label>
               <div className="relative">
                 <select
+                  id="shop-sort-select"
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
+                  onChange={(e) => handleSortChange(e.target.value)}
                   className="appearance-none bg-[#F1ECE3] border border-[#E5DDD2] text-[11px] font-medium tracking-wider uppercase px-3 py-1.5 pr-7 focus:outline-none focus:border-[#0D0D0D] cursor-pointer"
+                  aria-label="Sort collection pieces"
                 >
                   <option value="featured">FEATURED</option>
                   <option value="newest">NEWEST</option>
@@ -242,16 +364,20 @@ export function ShopClient({
             onRemoveFit={handleToggleFit}
             selectedStyles={selectedStyles}
             onRemoveStyle={handleToggleStyle}
+            priceRange={priceRange}
+            onResetPrice={handleResetPrice}
             onClearAll={handleResetFilters}
-            totalCount={filteredProducts.length}
+            initialCategory={initialCategory}
           />
         </div>
 
         {/* Mobile Filter Toggle */}
         <div className="lg:hidden flex items-center justify-between pb-2">
           <button
+            type="button"
             onClick={() => setIsFilterDrawerOpen(true)}
-            className="flex items-center gap-2 px-3.5 py-1.5 bg-[#F1ECE3] border border-[#E5DDD2] text-xs font-semibold tracking-wider uppercase hover:border-[#0D0D0D] transition-colors"
+            className="flex items-center gap-2 px-3.5 py-1.5 bg-[#F1ECE3] border border-[#E5DDD2] text-xs font-semibold tracking-wider uppercase hover:border-[#0D0D0D] transition-colors cursor-pointer"
+            aria-label="Open mobile filter options"
           >
             <SlidersHorizontal size={13} />
             <span>FILTERS</span>
@@ -275,15 +401,20 @@ export function ShopClient({
               selectedStyles={selectedStyles}
               onToggleStyle={handleToggleStyle}
               priceRange={priceRange}
-              onPriceChange={setPriceRange}
+              onPriceChange={handlePriceChange}
               onResetFilters={handleResetFilters}
               hasActiveFilters={hasActiveFilters}
+              initialCategory={initialCategory}
             />
           </div>
 
           {/* Right Product Grid */}
           <div className="lg:col-span-9">
-            <ProductGrid products={filteredProducts} columns={3} />
+            <ProductGrid
+              products={filteredProducts}
+              columns={2}
+              onClearFilters={hasActiveFilters ? handleResetFilters : undefined}
+            />
           </div>
         </div>
       </div>
@@ -303,10 +434,11 @@ export function ShopClient({
         selectedStyles={selectedStyles}
         onToggleStyle={handleToggleStyle}
         priceRange={priceRange}
-        onPriceChange={setPriceRange}
+        onPriceChange={handlePriceChange}
         onResetFilters={handleResetFilters}
         hasActiveFilters={hasActiveFilters}
         totalResults={filteredProducts.length}
+        initialCategory={initialCategory}
       />
     </div>
   );

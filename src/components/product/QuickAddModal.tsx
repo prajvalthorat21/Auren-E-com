@@ -53,6 +53,7 @@ export function QuickAddModal() {
               src={quickAddProduct.images[0]}
               alt={quickAddProduct.name}
               fill
+              sizes="96px"
               className="object-cover object-center"
             />
           </div>

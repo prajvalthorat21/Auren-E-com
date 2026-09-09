@@ -16,7 +16,7 @@ export function EditorialEdit() {
               alt="The AUREN Edit Campaign"
               fill
               sizes="(max-width: 1024px) 100vw, 60vw"
-              className="object-cover object-center"
+              className="object-cover object-[72%_center] sm:object-[68%_center] lg:object-center"
             />
           </div>
 

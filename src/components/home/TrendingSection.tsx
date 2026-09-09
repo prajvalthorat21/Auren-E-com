@@ -5,12 +5,12 @@ import { ProductGrid } from "@/components/product/ProductGrid";
 import { getTrendingProducts } from "@/data/products";
 
 export function TrendingSection() {
-  const trendingProducts = getTrendingProducts().slice(0, 8);
+  const trendingProducts = getTrendingProducts().slice(0, 4);
 
   return (
-    <section className="w-full py-16 sm:py-24 bg-[#F8F5EF]">
+    <section className="w-full py-12 sm:py-16 lg:py-20 bg-[#F8F5EF]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#E5DDD2] gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#E5DDD2] gap-4">
           <div className="space-y-1">
             <span className="text-[10px] tracking-[0.25em] text-[#8C8C8C] uppercase font-semibold">
               COMMUNITY FAVORITES
@@ -32,7 +32,7 @@ export function TrendingSection() {
           </Link>
         </div>
 
-        <ProductGrid products={trendingProducts} columns={4} />
+        <ProductGrid products={trendingProducts} columns={2} />
       </div>
     </section>
   );

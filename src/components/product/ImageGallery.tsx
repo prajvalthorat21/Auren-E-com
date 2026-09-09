@@ -12,9 +12,9 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   return (
-    <div className="flex flex-col-reverse md:flex-row gap-4 w-full">
+    <div className="flex flex-col-reverse md:flex-row gap-4 w-full items-start">
       {/* Thumbnails */}
-      <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto max-h-[650px] no-scrollbar">
+      <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto w-full md:w-auto max-h-[460px] sm:max-h-[520px] lg:max-h-[calc(100vh-14rem)] lg:max-h-[580px] no-scrollbar flex-shrink-0">
         {images.map((img, idx) => (
           <button
             key={idx}
@@ -30,6 +30,7 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
               src={img}
               alt={`${productName} thumbnail ${idx + 1}`}
               fill
+              sizes="(max-width: 640px) 64px, 80px"
               className="object-cover object-center"
             />
           </button>
@@ -37,14 +38,14 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
       </div>
 
       {/* Main Image View */}
-      <div className="relative flex-1 aspect-[3/4] bg-[#F1ECE3] overflow-hidden">
+      <div className="relative aspect-[3/4] w-full md:w-auto h-[460px] sm:h-[520px] lg:h-[calc(100vh-14rem)] lg:max-h-[580px] min-h-[380px] bg-[#F1ECE3] border border-[#E5DDD2] overflow-hidden flex items-center justify-center flex-shrink-0">
         <Image
           src={images[selectedImageIndex] || images[0]}
           alt={productName}
           fill
           priority
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover object-center transition-all duration-500"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, (max-width: 1280px) 58vw, 700px"
+          className="object-contain object-center transition-all duration-300"
         />
       </div>
     </div>

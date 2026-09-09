@@ -11,15 +11,15 @@ export default function CheckoutPage() {
   const { items, subtotal, isFreeShipping, clearCart } = useCart();
 
   const [formData, setFormData] = useState({
-    email: "alex.morgan@example.com",
-    phone: "+91 98765 43210",
-    firstName: "Alex",
-    lastName: "Morgan",
-    address: "102 Indiranagar 100ft Road",
-    apartment: "Apt 4B",
-    city: "Bengaluru",
+    email: "",
+    phone: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    apartment: "",
+    city: "",
     state: "Karnataka",
-    pincode: "560038",
+    pincode: "",
   });
 
   const [paymentMethod, setPaymentMethod] = useState<"upi" | "card" | "cod">("upi");
@@ -146,7 +146,7 @@ export default function CheckoutPage() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="alex@example.com"
+                      placeholder="your.email@domain.com"
                       className="w-full px-4 py-3 bg-[#F1ECE3] border border-[#E5DDD2] text-xs tracking-wider focus:outline-none focus:border-[#0D0D0D]"
                     />
                   </div>
@@ -159,7 +159,7 @@ export default function CheckoutPage() {
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 Mobile number"
                       className="w-full px-4 py-3 bg-[#F1ECE3] border border-[#E5DDD2] text-xs tracking-wider focus:outline-none focus:border-[#0D0D0D]"
                     />
                   </div>
@@ -184,6 +184,7 @@ export default function CheckoutPage() {
                       required
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                      placeholder="First name"
                       className="w-full px-4 py-3 bg-[#F1ECE3] border border-[#E5DDD2] text-xs tracking-wider focus:outline-none focus:border-[#0D0D0D]"
                     />
                   </div>
@@ -196,6 +197,7 @@ export default function CheckoutPage() {
                       required
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                      placeholder="Last name"
                       className="w-full px-4 py-3 bg-[#F1ECE3] border border-[#E5DDD2] text-xs tracking-wider focus:outline-none focus:border-[#0D0D0D]"
                     />
                   </div>
@@ -210,7 +212,7 @@ export default function CheckoutPage() {
                     required
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    placeholder="House number and street name"
+                    placeholder="House / Flat / Street address"
                     className="w-full px-4 py-3 bg-[#F1ECE3] border border-[#E5DDD2] text-xs tracking-wider focus:outline-none focus:border-[#0D0D0D]"
                   />
                 </div>
@@ -225,7 +227,7 @@ export default function CheckoutPage() {
                       required
                       value={formData.city}
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                      placeholder="Bengaluru"
+                      placeholder="City"
                       className="w-full px-4 py-3 bg-[#F1ECE3] border border-[#E5DDD2] text-xs tracking-wider focus:outline-none focus:border-[#0D0D0D]"
                     />
                   </div>
@@ -256,7 +258,7 @@ export default function CheckoutPage() {
                       required
                       value={formData.pincode}
                       onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
-                      placeholder="560038"
+                      placeholder="PIN code"
                       className="w-full px-4 py-3 bg-[#F1ECE3] border border-[#E5DDD2] text-xs tracking-wider focus:outline-none focus:border-[#0D0D0D]"
                     />
                   </div>
@@ -380,7 +382,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* Right Column: Order Summary */}
-          <div className="lg:col-span-5 bg-[#F1ECE3] border border-[#E5DDD2] p-6 sm:p-8 space-y-6 sticky top-28">
+          <div className="lg:col-span-5 bg-[#F1ECE3] border border-[#E5DDD2] p-6 sm:p-8 space-y-6 lg:sticky lg:top-28">
             <h2 className="font-editorial text-xl tracking-wide pb-3 border-b border-[#E5DDD2]">
               ORDER SUMMARY ({items.length})
             </h2>
@@ -394,6 +396,7 @@ export default function CheckoutPage() {
                       src={item.product.images[0]}
                       alt={item.product.name}
                       fill
+                      sizes="64px"
                       className="object-cover object-center"
                     />
                     <span className="absolute top-0 right-0 bg-[#0D0D0D] text-[#F8F5EF] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">

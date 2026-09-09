@@ -23,12 +23,14 @@ interface FilterDrawerProps {
   onResetFilters: () => void;
   hasActiveFilters: boolean;
   totalResults: number;
+  initialCategory?: CategorySlug;
 }
 
 export function FilterDrawer({
   isOpen,
   onClose,
   totalResults,
+  initialCategory,
   ...sidebarProps
 }: FilterDrawerProps) {
   if (!isOpen) return null;
@@ -49,7 +51,7 @@ export function FilterDrawer({
         </div>
 
         <div className="py-6 flex-1 overflow-y-auto">
-          <FilterSidebar {...sidebarProps} />
+          <FilterSidebar initialCategory={initialCategory} {...sidebarProps} />
         </div>
 
         <div className="pt-4 border-t border-[#E5DDD2]">

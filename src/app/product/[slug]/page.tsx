@@ -43,8 +43,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   return (
-    <div className="w-full min-h-screen py-8 sm:py-12 bg-[#F8F5EF] text-[#0D0D0D]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div className="w-full min-h-screen py-6 sm:py-8 lg:py-8 bg-[#F8F5EF] text-[#0D0D0D]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-[11px] text-[#8C8C8C] tracking-wider uppercase">
           <Link href="/" className="hover:text-[#0D0D0D] transition-colors">
@@ -68,9 +68,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </nav>
 
         {/* Main PDP Grid: Gallery Left + Info Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
-          {/* Left: Image Gallery */}
-          <div className="lg:col-span-7 sticky top-28">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Left: Image Gallery (Normal document flow on mobile/tablet, sticky on desktop) */}
+          <div className="lg:col-span-7 lg:sticky lg:top-24">
             <ImageGallery images={product.images} productName={product.name} />
           </div>
 

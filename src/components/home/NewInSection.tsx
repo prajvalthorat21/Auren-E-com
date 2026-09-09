@@ -5,12 +5,12 @@ import { ProductGrid } from "@/components/product/ProductGrid";
 import { getNewInProducts } from "@/data/products";
 
 export function NewInSection() {
-  const newProducts = getNewInProducts().slice(0, 8);
+  const newProducts = getNewInProducts().slice(0, 4);
 
   return (
-    <section className="w-full py-16 sm:py-24 bg-[#F8F5EF] border-t border-[#E5DDD2]">
+    <section className="w-full py-12 sm:py-16 lg:py-20 bg-[#F8F5EF] border-t border-[#E5DDD2]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-[#E5DDD2] gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#E5DDD2] gap-4">
           <div className="space-y-1">
             <span className="text-[10px] tracking-[0.25em] text-[#8C8C8C] uppercase font-semibold">
               JUST DROPPED
@@ -32,7 +32,7 @@ export function NewInSection() {
           </Link>
         </div>
 
-        <ProductGrid products={newProducts} columns={4} />
+        <ProductGrid products={newProducts} columns={2} />
       </div>
     </section>
   );

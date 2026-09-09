@@ -26,7 +26,7 @@ export function CategoryBanners() {
           </Link>
         </div>
 
-        {/* 4 Large Editorial Category Cards */}
+        {/* 4 Clean Editorial Category Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {CATEGORIES.map((cat) => (
             <Link
@@ -34,24 +34,25 @@ export function CategoryBanners() {
               href={`/shop/${cat.slug}`}
               className="group relative flex flex-col h-[440px] sm:h-[480px] overflow-hidden bg-[#F1ECE3] border border-[#E5DDD2]"
             >
-              {/* Image with subtle hover zoom */}
+              {/* Approved On-Model Category Image with subtle hover zoom */}
               <div className="absolute inset-0 w-full h-full">
                 <Image
                   src={cat.image}
-                  alt={cat.name}
+                  alt={cat.altText || `AUREN ${cat.name}`}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="object-cover object-[center_20%] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                 />
+                {/* Subtle dark bottom gradient for text contrast */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
               </div>
 
-              {/* Text Information */}
-              <div className="relative z-10 mt-auto p-6 text-[#F8F5EF] space-y-2">
+              {/* Category Card Text Details */}
+              <div className="relative z-10 mt-auto p-6 text-[#F8F5EF] space-y-1.5">
                 <h3 className="font-editorial text-2xl tracking-wider uppercase text-[#F8F5EF]">
                   {cat.name}
                 </h3>
-                <p className="text-[11px] text-[#E5DDD2] line-clamp-1 opacity-80">
+                <p className="text-xs text-[#E5DDD2]/90 line-clamp-1 font-light tracking-wide">
                   {cat.tagline}
                 </p>
                 <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold tracking-[0.2em] uppercase text-[#F8F5EF] group-hover:translate-x-1 transition-transform">

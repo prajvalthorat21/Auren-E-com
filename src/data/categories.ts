@@ -6,6 +6,7 @@ export interface CategoryInfo {
   tagline: string;
   description: string;
   image: string;
+  altText: string;
   featuredCount: number;
 }
 
@@ -13,33 +14,37 @@ export const CATEGORIES: CategoryInfo[] = [
   {
     slug: 't-shirts',
     name: 'T-SHIRTS',
-    tagline: 'Heavyweight Cotton & Structured Drape',
-    description: 'Clean proportions, 280-320 GSM combed cotton, drop-shoulder silhouettes engineered for timeless unisex everyday wear.',
-    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=1200',
-    featuredCount: 10,
+    tagline: 'Heavyweight cotton essentials',
+    description: 'Heavyweight cotton essentials engineered for timeless unisex everyday rotation.',
+    image: '/images/campaign/category/auren-category-tshirts-v01.png',
+    altText: 'AUREN T-Shirts Editorial Campaign',
+    featuredCount: 4,
   },
   {
     slug: 'shirts',
     name: 'SHIRTS',
-    tagline: 'Fluid Tencel & Architectural Poplin',
-    description: 'Relaxed button-downs, crisp poplin overshirts, and camp collars designed with understated tailoring.',
-    image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=1200',
-    featuredCount: 10,
+    tagline: 'Relaxed shirting and modern layers',
+    description: 'Relaxed shirting and modern layers crafted with understated tailoring.',
+    image: '/images/campaign/category/auren-category-shirts-v01.png',
+    altText: 'AUREN Shirts Editorial Campaign',
+    featuredCount: 4,
   },
   {
     slug: 'jeans',
     name: 'JEANS',
-    tagline: 'Selvedge Denim & Relaxed Silhouettes',
-    description: '13.5oz non-stretch Japanese and organic cotton denim in vintage washes, wide-leg cuts, and straight-leg tailoring.',
-    image: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&q=80&w=1200',
-    featuredCount: 10,
+    tagline: 'Straight, wide and refined denim',
+    description: 'Straight, wide and refined denim in non-stretch organic and selvedge cotton.',
+    image: '/images/campaign/category/auren-category-jeans-v01.png',
+    altText: 'AUREN Jeans Editorial Campaign',
+    featuredCount: 4,
   },
   {
     slug: 'track-pants',
     name: 'TRACK PANTS',
-    tagline: 'French Terry & Technical Tailoring',
-    description: 'Substantial 450 GSM organic loopback fleece and matte nylon technical pants featuring clean drape and hidden cords.',
-    image: 'https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&q=80&w=1200',
-    featuredCount: 10,
+    tagline: 'Relaxed fleece and utility silhouettes',
+    description: 'Relaxed fleece and utility silhouettes in heavy organic French terry and matte ripstop.',
+    image: '/images/campaign/category/auren-category-track-pants-v01.png',
+    altText: 'AUREN Track Pants Editorial Campaign',
+    featuredCount: 4,
   },
 ];

@@ -50,7 +50,7 @@ export default function WishlistPage() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:gap-x-8 lg:gap-y-14">
             {wishlist.map((product) => (
               <div
                 key={product.id}
@@ -63,6 +63,7 @@ export default function WishlistPage() {
                       src={product.images[0]}
                       alt={product.name}
                       fill
+                      sizes="(max-width: 768px) 50vw, 50vw"
                       className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     />
                   </Link>
