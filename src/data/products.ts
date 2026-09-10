@@ -11,7 +11,7 @@ export const PRODUCTS: Product[] = [
     slug: "heavyweight-box-tee",
     category: "t-shirts",
     categoryName: "T-Shirts",
-    price: 1499,
+    price: 45,
     images: getProductImageSet("tshirt_01"),
     colors: [
       { name: "Black", hex: "#0D0D0D" },
@@ -43,7 +43,7 @@ export const PRODUCTS: Product[] = [
     slug: "essential-tee",
     category: "t-shirts",
     categoryName: "T-Shirts",
-    price: 1299,
+    price: 39,
     images: getProductImageSet("tshirt_02"),
     colors: [
       { name: "Ivory", hex: "#F8F5EF" },
@@ -75,7 +75,7 @@ export const PRODUCTS: Product[] = [
     slug: "washed-tee",
     category: "t-shirts",
     categoryName: "T-Shirts",
-    price: 1699,
+    price: 49,
     images: getProductImageSet("tshirt_03"),
     colors: [
       { name: "Charcoal", hex: "#383838" },
@@ -107,7 +107,7 @@ export const PRODUCTS: Product[] = [
     slug: "rib-minimal-tee",
     category: "t-shirts",
     categoryName: "T-Shirts",
-    price: 1599,
+    price: 45,
     images: getProductImageSet("tshirt_04"),
     colors: [
       { name: "Black", hex: "#0D0D0D" },
@@ -142,7 +142,7 @@ export const PRODUCTS: Product[] = [
     slug: "relaxed-poplin-shirt",
     category: "shirts",
     categoryName: "Shirts",
-    price: 2499,
+    price: 79,
     images: getProductImageSet("shirt_01"),
     colors: [
       { name: "Ivory", hex: "#F8F5EF" },
@@ -174,7 +174,7 @@ export const PRODUCTS: Product[] = [
     slug: "soft-linen-shirt",
     category: "shirts",
     categoryName: "Shirts",
-    price: 2699,
+    price: 89,
     images: getProductImageSet("shirt_02"),
     colors: [
       { name: "Stone", hex: "#E3DCCF" },
@@ -206,7 +206,7 @@ export const PRODUCTS: Product[] = [
     slug: "structured-overshirt",
     category: "shirts",
     categoryName: "Shirts",
-    price: 2999,
+    price: 99,
     images: getProductImageSet("shirt_03"),
     colors: [
       { name: "Charcoal", hex: "#2A2A2A" },
@@ -238,7 +238,7 @@ export const PRODUCTS: Product[] = [
     slug: "minimal-oxford",
     category: "shirts",
     categoryName: "Shirts",
-    price: 2399,
+    price: 85,
     images: getProductImageSet("shirt_04"),
     colors: [
       { name: "Ivory", hex: "#F8F5EF" },
@@ -273,7 +273,7 @@ export const PRODUCTS: Product[] = [
     slug: "straight-vintage-denim",
     category: "jeans",
     categoryName: "Jeans",
-    price: 2799,
+    price: 89,
     images: getProductImageSet("jean_01"),
     colors: [
       { name: "Indigo", hex: "#4A6B8A" },
@@ -304,7 +304,7 @@ export const PRODUCTS: Product[] = [
     slug: "wide-leg-denim",
     category: "jeans",
     categoryName: "Jeans",
-    price: 3299,
+    price: 99,
     images: getProductImageSet("jean_02"),
     colors: [
       { name: "Indigo", hex: "#162032" },
@@ -335,7 +335,7 @@ export const PRODUCTS: Product[] = [
     slug: "charcoal-denim",
     category: "jeans",
     categoryName: "Jeans",
-    price: 2999,
+    price: 95,
     images: getProductImageSet("jean_03"),
     colors: [
       { name: "Charcoal", hex: "#2E2E2E" },
@@ -365,7 +365,7 @@ export const PRODUCTS: Product[] = [
     slug: "dark-indigo-denim",
     category: "jeans",
     categoryName: "Jeans",
-    price: 3199,
+    price: 99,
     images: getProductImageSet("jean_04"),
     colors: [
       { name: "Indigo", hex: "#141C2B" },
@@ -398,7 +398,7 @@ export const PRODUCTS: Product[] = [
     slug: "heavyweight-wide-track",
     category: "track-pants",
     categoryName: "Track Pants",
-    price: 2499,
+    price: 79,
     images: getProductImageSet("track_01"),
     colors: [
       { name: "Charcoal", hex: "#2B2B2B" },
@@ -430,7 +430,7 @@ export const PRODUCTS: Product[] = [
     slug: "everyday-relaxed-pant",
     category: "track-pants",
     categoryName: "Track Pants",
-    price: 2299,
+    price: 75,
     images: getProductImageSet("track_02"),
     colors: [
       { name: "Stone", hex: "#8F8B82" },
@@ -462,7 +462,7 @@ export const PRODUCTS: Product[] = [
     slug: "minimal-tapered-pant",
     category: "track-pants",
     categoryName: "Track Pants",
-    price: 2399,
+    price: 79,
     images: getProductImageSet("track_03"),
     colors: [
       { name: "Stone", hex: "#B5B5B5" },
@@ -493,7 +493,7 @@ export const PRODUCTS: Product[] = [
     slug: "utility-track-pant",
     category: "track-pants",
     categoryName: "Track Pants",
-    price: 2799,
+    price: 89,
     images: getProductImageSet("track_04"),
     colors: [
       { name: "Black", hex: "#0D0D0D" },

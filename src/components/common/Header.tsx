@@ -203,7 +203,7 @@ export function Header() {
           <div className="px-6 py-5 border-t border-[#E5DDD2] space-y-3 text-xs text-[#555555] bg-[#F1ECE3]/40">
             <div className="flex justify-between items-center">
               <span>CURRENCY</span>
-              <span className="font-medium text-[#0D0D0D]">INR (₹)</span>
+              <span className="font-medium text-[#0D0D0D]">USD ($)</span>
             </div>
             <div className="flex justify-between items-center">
               <span>ASSISTANCE</span>

@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { CartItem, Product, ProductColor, GarmentSize } from "@/lib/types";
+import { PRODUCTS } from "@/data/products";
 
 interface CartContextType {
   items: CartItem[];
@@ -22,7 +23,7 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 const CART_STORAGE_KEY = "auren_cart_items";
-const FREE_SHIPPING_THRESHOLD = 999;
+const FREE_SHIPPING_THRESHOLD = 75;
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
@@ -33,7 +34,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     try {
       const saved = localStorage.getItem(CART_STORAGE_KEY);
       if (saved) {
-        setItems(JSON.parse(saved));
+        const parsed: CartItem[] = JSON.parse(saved);
+        // Sync item prices with canonical USD product pricing
+        const synced = parsed.map((item) => {
+          const canonical = PRODUCTS.find((p) => p.id === item.productId);
+          if (canonical) {
+            return {
+              ...item,
+              price: canonical.price,
+              product: canonical,
+            };
+          }
+          return item;
+        });
+        setItems(synced);
       }
     } catch (e) {
       console.error("Failed to load cart from localStorage", e);

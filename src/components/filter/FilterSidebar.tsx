@@ -215,20 +215,20 @@ export function FilterSidebar({
           <h4 className="text-xs font-semibold tracking-widest uppercase text-[#555555]">
             PRICE
           </h4>
-          <span className="text-xs font-medium">UP TO ₹{priceRange[1]}</span>
+          <span className="text-xs font-medium">UP TO ${priceRange[1]}</span>
         </div>
         <input
           type="range"
-          min="1000"
-          max="4000"
-          step="200"
+          min="30"
+          max="150"
+          step="5"
           value={priceRange[1]}
           onChange={(e) => onPriceChange([priceRange[0], Number(e.target.value)])}
           className="w-full h-1 bg-[#E5DDD2] rounded-none appearance-none cursor-pointer accent-[#0D0D0D]"
         />
         <div className="flex justify-between text-[10px] text-[#8C8C8C] tracking-wider">
-          <span>₹1,000</span>
-          <span>₹4,000+</span>
+          <span>$30</span>
+          <span>$150+</span>
         </div>
       </div>
     </aside>

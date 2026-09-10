@@ -17,11 +17,11 @@ export function BrandStatement() {
           AUREN creates modern essentials designed to move with you — considered silhouettes, understated details and pieces made to stay in rotation.
         </p>
 
-        <div className="pt-4 flex items-center justify-center gap-8 text-[11px] tracking-[0.2em] uppercase text-[#8C8C8C]">
+        <div className="pt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.2em] uppercase text-[#8C8C8C] max-w-full">
           <span>UNCOMPROMISING FABRICS</span>
-          <span>•</span>
+          <span className="hidden sm:inline-block">•</span>
           <span>UNISEX PROPORTIONS</span>
-          <span>•</span>
+          <span className="hidden sm:inline-block">•</span>
           <span>TIMELESS FORM</span>
         </div>
       </div>

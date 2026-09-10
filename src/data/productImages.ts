@@ -14,6 +14,7 @@ export interface ProductImageSet {
 export const ASSET_IMAGES = {
   // Hero & Editorial Banners (Dedicated campaign visual)
   hero: "/images/campaign/auren-home-hero-v01.png",
+  heroVideo: "/images/campaign/auren-hero-video.mp4",
   editorialCampaign: "/images/campaign/AUREN_MASTER_CAMPAIGN_REFERENCE_BOARD.png",
 
   // Category Banners (Newly Generated Nano Banana Editorial Photography)

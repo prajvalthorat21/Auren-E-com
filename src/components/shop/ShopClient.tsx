@@ -71,9 +71,9 @@ export function ShopClient({
 
   const maxPrice = useMemo<number>(() => {
     const priceParam = searchParams.get("maxPrice") || searchParams.get("price");
-    if (!priceParam) return 4500;
+    if (!priceParam) return 150;
     const parsed = Number(priceParam);
-    return isNaN(parsed) ? 4500 : parsed;
+    return isNaN(parsed) ? 150 : parsed;
   }, [searchParams]);
 
   const priceRange = useMemo<[number, number]>(() => [0, maxPrice], [maxPrice]);
@@ -131,7 +131,7 @@ export function ShopClient({
       if (newStyles.length > 0) {
         params.set("style", newStyles.map((s) => s.toLowerCase()).join(","));
       }
-      if (newPrice < 4500) {
+      if (newPrice < 150) {
         params.set("maxPrice", String(newPrice));
       }
       if (newSort && newSort !== "featured") {
@@ -205,7 +205,7 @@ export function ShopClient({
   };
 
   const handleResetPrice = () => {
-    updateUrlFilters({ maxPrice: 4500 });
+    updateUrlFilters({ maxPrice: 150 });
   };
 
   const handleSortChange = (newSort: string) => {

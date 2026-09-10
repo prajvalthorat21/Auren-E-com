@@ -18,19 +18,19 @@ export default function CheckoutPage() {
     address: "",
     apartment: "",
     city: "",
-    state: "Karnataka",
+    state: "New York",
     pincode: "",
   });
 
-  const [paymentMethod, setPaymentMethod] = useState<"upi" | "card" | "cod">("upi");
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "paypal" | "cod">("card");
   const [shippingMethod, setShippingMethod] = useState<"standard" | "express">("standard");
   const [promoCode, setPromoCode] = useState("");
   const [promoApplied, setPromoApplied] = useState(false);
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
 
-  const shippingCost = isFreeShipping ? 0 : shippingMethod === "express" ? 150 : 99;
-  const discountAmount = promoApplied ? Math.round(subtotal * 0.1) : 0;
+  const shippingCost = isFreeShipping ? 0 : shippingMethod === "express" ? 15 : 8;
+  const discountAmount = promoApplied ? Number((subtotal * 0.1).toFixed(2)) : 0;
   const grandTotal = Math.max(0, subtotal - discountAmount + shippingCost);
 
   const handleApplyPromo = (e: React.FormEvent) => {
@@ -240,25 +240,27 @@ export default function CheckoutPage() {
                       onChange={(e) => setFormData({ ...formData, state: e.target.value })}
                       className="w-full px-4 py-3 bg-[#F1ECE3] border border-[#E5DDD2] text-xs tracking-wider focus:outline-none focus:border-[#0D0D0D]"
                     >
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Delhi NCR">Delhi NCR</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option value="New York">New York</option>
+                      <option value="California">California</option>
+                      <option value="Texas">Texas</option>
+                      <option value="Florida">Florida</option>
+                      <option value="Washington">Washington</option>
+                      <option value="Illinois">Illinois</option>
+                      <option value="London / UK">London / UK</option>
+                      <option value="Ontario / Canada">Ontario / Canada</option>
+                      <option value="International / Other">International / Other</option>
                     </select>
                   </div>
                   <div>
                     <label className="block text-[11px] font-medium tracking-wider uppercase text-[#555555] mb-1">
-                      PIN CODE *
+                      ZIP / POSTAL CODE *
                     </label>
                     <input
                       type="text"
                       required
                       value={formData.pincode}
                       onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
-                      placeholder="PIN code"
+                      placeholder="ZIP code"
                       className="w-full px-4 py-3 bg-[#F1ECE3] border border-[#E5DDD2] text-xs tracking-wider focus:outline-none focus:border-[#0D0D0D]"
                     />
                   </div>
@@ -285,11 +287,11 @@ export default function CheckoutPage() {
                       />
                       <div>
                         <p className="text-xs font-semibold uppercase">Standard Express (2-4 Days)</p>
-                        <p className="text-[11px] text-[#555555]">Complimentary on orders above ₹999</p>
+                        <p className="text-[11px] text-[#555555]">Complimentary on orders above $75</p>
                       </div>
                     </div>
                     <span className="text-xs font-semibold">
-                      {isFreeShipping ? "FREE" : "₹99"}
+                      {isFreeShipping ? "FREE" : "$8"}
                     </span>
                   </label>
 
@@ -307,7 +309,7 @@ export default function CheckoutPage() {
                         <p className="text-[11px] text-[#555555]">Dispatched within 6 hours</p>
                       </div>
                     </div>
-                    <span className="text-xs font-semibold">₹150</span>
+                    <span className="text-xs font-semibold">$15</span>
                   </label>
                 </div>
               </div>
@@ -326,13 +328,13 @@ export default function CheckoutPage() {
                       <input
                         type="radio"
                         name="payment"
-                        checked={paymentMethod === "upi"}
-                        onChange={() => setPaymentMethod("upi")}
+                        checked={paymentMethod === "card"}
+                        onChange={() => setPaymentMethod("card")}
                         className="accent-[#0D0D0D]"
                       />
                       <div>
-                        <p className="text-xs font-semibold uppercase">UPI Instant (GPay / PhonePe / Paytm / QR)</p>
-                        <p className="text-[11px] text-[#555555]">Instant zero-fee checkout</p>
+                        <p className="text-xs font-semibold uppercase">Credit / Debit Cards (Visa, Mastercard, Amex, Apple Pay)</p>
+                        <p className="text-[11px] text-[#555555]">Encrypted tokenized transaction</p>
                       </div>
                     </div>
                   </label>
@@ -342,13 +344,13 @@ export default function CheckoutPage() {
                       <input
                         type="radio"
                         name="payment"
-                        checked={paymentMethod === "card"}
-                        onChange={() => setPaymentMethod("card")}
+                        checked={paymentMethod === "paypal"}
+                        onChange={() => setPaymentMethod("paypal")}
                         className="accent-[#0D0D0D]"
                       />
                       <div>
-                        <p className="text-xs font-semibold uppercase">Credit / Debit Cards (Visa, Mastercard, Amex)</p>
-                        <p className="text-[11px] text-[#555555]">Encrypted tokenized transaction</p>
+                        <p className="text-xs font-semibold uppercase">PayPal / Express Checkout</p>
+                        <p className="text-[11px] text-[#555555]">Fast and secure digital payment</p>
                       </div>
                     </div>
                   </label>
@@ -459,8 +461,8 @@ export default function CheckoutPage() {
                 </span>
               </div>
               <div className="flex justify-between text-[#555555]">
-                <span>Taxes (GST Included)</span>
-                <span className="text-[#0D0D0D] font-medium">₹0</span>
+                <span>Estimated Taxes</span>
+                <span className="text-[#0D0D0D] font-medium">$0</span>
               </div>
               <div className="flex justify-between text-sm font-semibold text-[#0D0D0D] pt-3 border-t border-[#E5DDD2]">
                 <span>TOTAL</span>

@@ -82,6 +82,31 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
         {/* Recommendations */}
         <ProductRecommendations currentProduct={product} allProducts={PRODUCTS} />
+
+        {/* Schema.org Product Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              name: product.name,
+              image: product.images,
+              description: product.description,
+              brand: {
+                "@type": "Brand",
+                name: "AUREN",
+              },
+              offers: {
+                "@type": "Offer",
+                priceCurrency: "USD",
+                price: product.price,
+                availability: "https://schema.org/InStock",
+                url: `https://auren.studio/product/${product.slug}`,
+              },
+            }),
+          }}
+        />
       </div>
     </div>
   );

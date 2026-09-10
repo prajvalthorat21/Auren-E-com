@@ -14,7 +14,7 @@ export function Footer() {
               Everyday, elevated. Modern essentials designed for wherever the day takes you. Considered silhouettes, understated details, and timeless pieces made to stay in rotation.
             </p>
             <div className="pt-2 text-[11px] tracking-wider text-[#8C8C8C]">
-              BENGALURU • MUMBAI • NEW DELHI
+              NEW YORK • LONDON • PARIS • TOKYO
             </div>
           </div>
 
@@ -128,8 +128,8 @@ export function Footer() {
 
         {/* Bottom Bar with Large Typographic AUREN */}
         <div className="pt-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-[11px] tracking-wider text-[#8C8C8C]">
-            © {new Date().getFullYear()} AUREN STUDIO INDIA PVT. LTD. ALL RIGHTS RESERVED.
+          <p className="text-[11px] tracking-wider text-[#8C8C8C] text-center md:text-left">
+            © {new Date().getFullYear()} AUREN STUDIO. ALL RIGHTS RESERVED.
           </p>
 
           <div className="flex items-center space-x-6 text-[11px] tracking-widest text-[#555555] uppercase">

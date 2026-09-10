@@ -49,7 +49,7 @@ export function ActiveFilters({
     ? selectedCategories.filter((c) => c !== initialCategory)
     : selectedCategories;
 
-  const hasPriceFilter = priceRange[1] < 4500;
+  const hasPriceFilter = priceRange[1] < 150;
 
   const totalAppliedCount =
     activeCategories.length +
@@ -145,7 +145,7 @@ export function ActiveFilters({
           className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-[#F1ECE3] border border-[#E5DDD2] text-[10px] uppercase font-medium tracking-wider text-[#0D0D0D] hover:bg-[#E5DDD2] transition-colors cursor-pointer"
           aria-label="Remove price filter"
         >
-          <span>PRICE: ≤ ₹{priceRange[1]}</span>
+          <span>PRICE: ≤ ${priceRange[1]}</span>
           <X size={11} />
         </button>
       )}

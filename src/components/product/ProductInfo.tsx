@@ -81,7 +81,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
             </span>
           </>
         )}
-        <span className="text-[11px] text-[#8C8C8C] ml-auto">INCL. OF ALL TAXES</span>
+        <span className="text-[11px] text-[#8C8C8C] ml-auto uppercase tracking-wider">TAXES CALCULATED AT CHECKOUT</span>
       </div>
 
       {/* COLOR SELECTION */}
@@ -189,7 +189,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
       <div className="grid grid-cols-3 gap-3 py-4 border-y border-[#E5DDD2] text-center text-[10px] text-[#555555] tracking-wider uppercase">
         <div className="flex flex-col items-center gap-1.5">
           <Truck size={16} className="text-[#0D0D0D]" />
-          <span>FREE SHIPPING &gt; ₹999</span>
+          <span>FREE SHIPPING &gt; $75</span>
         </div>
         <div className="flex flex-col items-center gap-1.5">
           <RefreshCw size={16} className="text-[#0D0D0D]" />
@@ -278,8 +278,8 @@ export function ProductInfo({ product }: ProductInfoProps) {
           </button>
           {openAccordion === "ship" && (
             <div className="pt-3 space-y-2 text-xs text-[#555555] leading-relaxed animate-fade-in">
-              <p>• Standard Express Delivery: 2-4 business days across India.</p>
-              <p>• Complimentary express shipping on all orders over ₹999.</p>
+              <p>• Standard Express Delivery: 2-4 business days.</p>
+              <p>• Complimentary express shipping on all orders over $75.</p>
               <p>• Hassle-free 7-day doorstep exchange and return policy on unworn items with tags intact.</p>
             </div>
           )}

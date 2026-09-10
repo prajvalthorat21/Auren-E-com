@@ -6,10 +6,12 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatPrice(price: number): string {
-  return new Intl.NumberFormat("en-IN", {
+  const hasDecimals = price % 1 !== 0;
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
+    currency: "USD",
+    minimumFractionDigits: hasDecimals ? 2 : 0,
+    maximumFractionDigits: 2,
   }).format(price);
 }
 

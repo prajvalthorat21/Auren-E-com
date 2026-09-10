@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ASSET_IMAGES } from "@/data/productImages";
@@ -7,16 +6,18 @@ import { ASSET_IMAGES } from "@/data/productImages";
 export function HeroSection() {
   return (
     <section className="relative w-full min-h-[630px] sm:min-h-[680px] md:min-h-[85vh] lg:min-h-[92vh] flex items-end sm:items-center pt-24 pb-16 sm:py-20 lg:py-24 bg-[#0D0D0D] overflow-hidden">
-      {/* Background Editorial Image */}
+      {/* Background Editorial Video */}
       <div className="absolute inset-0 w-full h-full">
-        <Image
-          src={ASSET_IMAGES.hero}
-          alt="AUREN Editorial Fashion Campaign"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[78%_10%] sm:object-[72%_center] lg:object-center opacity-100"
-        />
+        <video
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          poster={ASSET_IMAGES.hero}
+          className="w-full h-full object-cover object-[78%_center] sm:object-[72%_center] lg:object-center"
+        >
+          <source src={ASSET_IMAGES.heroVideo} type="video/mp4" />
+        </video>
         {/* Responsive Directional Editorial Overlay:
             - Mobile: Gradient targeted behind lower text layer, leaving models, skin tones and architectural details bright
             - Desktop: Left-to-right gradient protecting text copy while preserving warm sunlight and fabric details on models
