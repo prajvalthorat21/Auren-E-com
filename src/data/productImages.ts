@@ -31,7 +31,7 @@ export const ASSET_IMAGES = {
       hover: "/images/products/t-shirts/T01_PRODUCT_ONLY.png",
     },
     tshirt_02: {
-      primary: "/images/products/t-shirts/T02_PRIMARY_ON_MODEL.png",
+      primary: "/images/products/t-shirts/T02_PRIMARY_ON_MODEL.jpg",
       hover: "/images/products/t-shirts/T02_PRODUCT_ONLY.png",
     },
     tshirt_03: {
